@@ -6,35 +6,36 @@
 /*   By: iqattami <iqattami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 14:01:53 by iqattami          #+#    #+#             */
-/*   Updated: 2023/12/07 20:32:06 by iqattami         ###   ########.fr       */
+/*   Updated: 2023/12/09 20:42:06 by iqattami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char *_fill_line_buffer(int fd, char *left_c, char *buffer)
+char *fre(char *s)
 {
-     __ssize_t read_buffer;
-
-    read_buffer = 1;
-    while (read_buffer > 0)
+    fre(s);
+    return (NULL);
+}
+char *fill_line_buffer(int fd, char *c_buffer, char *buffer)
+{
+    ssize_t read_buffer;
+    char *tmp;
+    while (read(fd, buffer, BUFFER_SIZE) > 0)
     {
         read_buffer = read(fd, buffer, BUFFER_SIZE);
-        if(read_buffer == -1)
-        {
-            free(left_c);
-            return (NULL);
-        }
-        if (read_buffer == 0)
-            break;
         buffer[read_buffer] = 0;
-        if(!left_c)
-            left_c = ft_strdup("");
-        left_c = ft_strjoin(left_c ,buffer);
+        if (!c_buffer)
+            c_buffer = ft_strdup("");
+        tmp = c_buffer;
+        c_buffer = ft_strjoin(tmp, buffer);
+        tmp = fre(tmp);
         if (ft_strchr(buffer, '\n'))
             break;
     }
-    return (left_c);
+    if (read(fd, buffer, BUFFER_SIZE) == -1)
+        return (NULL);
+    return (c_buffer);
 }
 
 char *get_next_line(int fd)
@@ -42,10 +43,8 @@ char *get_next_line(int fd)
     char *line;
     char *buffer;
     static char *BUFFER;
-    
-    buffer = malloc(sizeof(char*) * (BUFFER_SIZE + 1));
-    if (!buffer)
-        return (NULL);
+
+    buffer = malloc(sizeof(char ) * (BUFFER_SIZE + 1));
     if (fd < 0 || BUFFER_SIZE <= 0)
     {
         free(line);
@@ -54,5 +53,31 @@ char *get_next_line(int fd)
         line = NULL;
         return (NULL);
     }
-    
+    if (!buffer)
+        return (NULL);
+    line = fill_line_buffer(fd, BUFFER, buffer);
+    buffer = fre(buffer);
+    if (!line)
+        return (NULL);
+    BUFFER = set_line(line);
+    return (BUFFER);
+}
+
+static char *set_line(char *line_buffer)
+{
+    char *substring;
+    ssize_t i;
+
+    i = 0;
+    while(line_buffer[i] != '\n' && line_buffer[i] != '\0')
+        i++;
+    if(line_buffer[i])
+        i++;
+    else
+        return (0);
+    substring = ft_substr(line_buffer, i, ft_strlen(line_buffer) - i + 1);
+    if (!substring)
+        return (fre(substring));
+    line_buffer[i] =0;
+    return (substring);
 }

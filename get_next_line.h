@@ -6,7 +6,7 @@
 /*   By: iqattami <iqattami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 14:02:11 by iqattami          #+#    #+#             */
-/*   Updated: 2023/12/07 18:02:56 by iqattami         ###   ########.fr       */
+/*   Updated: 2023/12/09 19:09:34 by iqattami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 
 #include <string.h>
 #include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
 
 #define BUFFER_SIZE 1024
 char *get_next_line(int fd);

@@ -6,7 +6,7 @@
 /*   By: iqattami <iqattami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 14:02:11 by iqattami          #+#    #+#             */
-/*   Updated: 2023/12/09 19:09:34 by iqattami         ###   ########.fr       */
+/*   Updated: 2023/12/11 14:46:10 by iqattami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#define BUFFER_SIZE 1024
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 1024
+#endif
+
 char *get_next_line(int fd);
 char	*ft_strdup(const char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);

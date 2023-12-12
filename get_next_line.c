@@ -6,7 +6,7 @@
 /*   By: iqattami <iqattami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 14:01:53 by iqattami          #+#    #+#             */
-/*   Updated: 2023/12/12 16:01:10 by iqattami         ###   ########.fr       */
+/*   Updated: 2023/12/12 23:45:32 by iqattami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ char	*fill_line(int fd, char *s_output, char *buffer)
 	ssize_t	read_buffer;
 
 	read_buffer = read(fd, buffer, BUFFER_SIZE);
-	if (read_buffer == 0)
+	if (read_buffer == 0 || !buffer)
 		return (NULL);
-	while (read_buffer != 0 && !(ft_strchr(s_output, '\n')))
+	while (read_buffer != 0)
 	{
         read_buffer = read(fd, buffer, BUFFER_SIZE);
 		if (read_buffer == -1)
@@ -76,6 +76,8 @@ char	*fill_line(int fd, char *s_output, char *buffer)
 		if (!s_output)
 			s_output = ft_strdup("");
 		s_output = ft_strjoin(s_output, buffer);
+		if(ft_strchr(s_output, '\n'))
+			break; 
 	}
 	return (s_output);
 }
@@ -90,38 +92,39 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0 || !buffer)
 		return (free(buffer), buffer = NULL, NULL);
 	rest = fill_line(fd, rest, buffer);
+	if(!rest)
+		return (NULL);
 	buffer = fre(buffer);
 	line = set_line(rest);
 	rest = next_line(rest);
 	return (line);
 }
 
-// #include <fcntl.h>
-// #include <stdio.h>
+#include <fcntl.h>
+#include <stdio.h>
 
-// int main(void)
-// {
-//     int fd;
-//     char *line;
+int main(void)
+{
+    int fd;
+    char *line;
 
-//     fd = open("hello.txt", O_RDONLY);
-	// Replace "test.txt" with your test file
+    fd = open("hello.txt", O_RDONLY);
 
-//     if (fd == -1)
-//     {
-//         perror("Error opening file");
-//         return (1);
-//     }
+    if (fd == -1)
+    {
+        perror("Error opening file");
+        return (1);
+    }
 
-//     if ((line = get_next_line(fd)) != NULL)
-//     {
-//         printf("%s\n", line);
-//         free(line);
-//     }else
-//     {
-//     close(fd);
+    if ((line = get_next_line(fd)) != NULL)
+    {
+        printf("%s\n", line);
+        free(line);
+    }else
+    {
+    close(fd);
 
-//     }
+    }
 
-//     return (0);
-// }
+    return (0);
+}

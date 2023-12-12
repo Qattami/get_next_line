@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "get_next_line.h"
 
-char	*ft_strdup(const char *s){
+char	*ft_strdup(const char *s)
+{
 	char	*p;
 	int		i;
 
@@ -40,10 +40,10 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 
 	if (!s)
 		return (NULL);
-	// if (start >= ft_strlen(s))
-	// 	return (ft_strdup(""));
-	// if (start + len > ft_strlen(s))
-	// 	len = ft_strlen(s) - start;
+	if (start >= ft_strlen(s))
+		return (ft_strdup(""));
+	if (start + len > ft_strlen(s))
+		len = ft_strlen(s) - start;
 	sub = malloc(sizeof(char) * (len + 1));
 	i = 0;
 	if (!sub)
@@ -114,7 +114,7 @@ char	*ft_strchr(const char *str, int character)
 			return ((char *)str + i);
 		i++;
 	}
-	//if (str[i] == (char)character)
-		//return ((char *)str + i);
+	if (str[i] == (char)character)
+	return ((char *)str + i);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: iqattami <iqattami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 14:02:04 by iqattami          #+#    #+#             */
-/*   Updated: 2023/12/07 17:53:41 by iqattami         ###   ########.fr       */
+/*   Updated: 2023/12/12 16:09:31 by iqattami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 
 	if (!s)
 		return (NULL);
-	if (start >= ft_strlen(s))
-		return (ft_strdup(""));
-	if (start + len > ft_strlen(s))
-		len = ft_strlen(s) - start;
+	// if (start >= ft_strlen(s))
+	// 	return (ft_strdup(""));
+	// if (start + len > ft_strlen(s))
+	// 	len = ft_strlen(s) - start;
 	sub = malloc(sizeof(char) * (len + 1));
 	i = 0;
 	if (!sub)
@@ -106,13 +106,15 @@ char	*ft_strchr(const char *str, int character)
 	int	i;
 
 	i = 0;
+	if (!str)
+		str = ft_strdup("");
 	while (str[i])
 	{
 		if (str[i] == (char)character)
 			return ((char *)str + i);
 		i++;
 	}
-	if (str[i] == (char)character)
-		return ((char *)str + i);
+	//if (str[i] == (char)character)
+		//return ((char *)str + i);
 	return (NULL);
 }

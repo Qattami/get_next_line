@@ -6,7 +6,7 @@
 /*   By: iqattami <iqattami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 14:01:53 by iqattami          #+#    #+#             */
-/*   Updated: 2023/12/12 23:45:32 by iqattami         ###   ########.fr       */
+/*   Updated: 2023/12/13 16:33:08 by iqattami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ char	*fill_line(int fd, char *s_output, char *buffer)
 {
 	ssize_t	read_buffer;
 
-	read_buffer = read(fd, buffer, BUFFER_SIZE);
-	if (read_buffer == 0 || !buffer)
-		return (NULL);
+	read_buffer =1;
+	// if (read_buffer == 0 )
+	// 	return (NULL);
 	while (read_buffer != 0)
 	{
         read_buffer = read(fd, buffer, BUFFER_SIZE);
@@ -72,7 +72,7 @@ char	*fill_line(int fd, char *s_output, char *buffer)
 			buffer = fre(buffer);
 			return (fre(s_output));
 		}
-		buffer[read_buffer] = 0;
+		buffer[read_buffer] = '\0';
 		if (!s_output)
 			s_output = ft_strdup("");
 		s_output = ft_strjoin(s_output, buffer);
@@ -100,31 +100,31 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-#include <fcntl.h>
-#include <stdio.h>
+// #include <fcntl.h>
+// #include <stdio.h>
 
-int main(void)
-{
-    int fd;
-    char *line;
+// int main(void)
+// {
+//     int fd;
+//     char *line;
 
-    fd = open("hello.txt", O_RDONLY);
+//     fd = open("hello.txt", O_RDONLY);
 
-    if (fd == -1)
-    {
-        perror("Error opening file");
-        return (1);
-    }
+//     if (fd == -1)
+//     {
+//         perror("Error opening file");
+//         return (1);
+//     }
 
-    if ((line = get_next_line(fd)) != NULL)
-    {
-        printf("%s\n", line);
-        free(line);
-    }else
-    {
-    close(fd);
+//     if ((line = get_next_line(fd)) != NULL)
+//     {
+//         printf("%s\n", line);
+//         free(line);
+//     }else
+//     {
+//     close(fd);
 
-    }
+//     }
 
-    return (0);
-}
+//     return (0);
+// }

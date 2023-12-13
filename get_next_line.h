@@ -6,7 +6,7 @@
 /*   By: iqattami <iqattami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 14:02:11 by iqattami          #+#    #+#             */
-/*   Updated: 2023/12/12 22:50:57 by iqattami         ###   ########.fr       */
+/*   Updated: 2023/12/13 16:58:43 by iqattami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <unistd.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 100000
 # endif
 
 char	*get_next_line(int fd);

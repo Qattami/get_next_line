@@ -15,12 +15,12 @@ static char	*set_line(char *line_buffer)
 
 	i = 0;
 	if (!line_buffer[i])
-		return (NULL);
+		return (free(line_buffer),line_buffer = NULL, NULL);
 	while (line_buffer[i] != '\n' && line_buffer[i] != '\0')
 		i++;
 	substring = ft_substr(line_buffer, 0, i + 1);
 	if (!substring)
-		return (fre(substring));
+		return (free(substring), substring = NULL, NULL);
 	return (substring);
 }
 
@@ -34,16 +34,17 @@ char	*next_line(char *buffer)
 	while (buffer[i] && buffer[i] != '\n')
 		i++;
 	if (!buffer[i])
-		return (fre(buffer));
+		return (free(buffer), buffer = NULL,NULL);
 	next_line = malloc(ft_strlen(buffer) - i + 1);
 	if (!next_line)
-		return (NULL);
+		return (free(next_line),next_line = NULL, NULL);
 	i++;
 	j = 0;
 	while (buffer[i])
 		next_line[j++] = buffer[i++];
 	next_line[j] = '\0';
 	free(buffer);
+	buffer = NULL;
 	return (next_line);
 }
 
@@ -52,15 +53,14 @@ char	*fill_line(int fd, char *s_output, char *buffer)
 	ssize_t	read_buffer;
 
 	read_buffer =1;
-	// if (read_buffer == 0 )
-	// 	return (NULL);
 	while (read_buffer != 0)
 	{
         read_buffer = read(fd, buffer, BUFFER_SIZE);
 		if (read_buffer == -1)
 		{
-			buffer = fre(buffer);
-			return (fre(s_output));
+			free(buffer);
+			buffer = NULL;
+			return (free(s_output), s_output = NULL, NULL);
 		}
 		buffer[read_buffer] = '\0';
 		if (!s_output)

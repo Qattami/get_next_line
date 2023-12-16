@@ -88,6 +88,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (m == NULL)
 		return (NULL);
 	m = ft_copy(m, s1, s2);
+	free ((char *)s1);
 	return (m);
 }
 
@@ -106,15 +107,17 @@ char	*ft_strchr(const char *str, int character)
 	int	i;
 
 	i = 0;
-	if (!str)
-		str = ft_strdup("");
-	while (str[i])
+	// if (!str)
+	// {
+		
+	// 	str = ft_strdup("");
+	// 	free ((char *)str);
+	// }
+	while (str && str[i] != '\0')
 	{
 		if (str[i] == (char)character)
 			return ((char *)str + i);
 		i++;
 	}
-	if (str[i] == (char)character)
-	return ((char *)str + i);
 	return (NULL);
 }

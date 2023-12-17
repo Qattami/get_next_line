@@ -11,16 +11,13 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-size_t	ft_strlen(const char *s)
+char	*fre(char *s)
 {
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
+	if (s)
+		free(s);
+	return (NULL);
 }
+
 
 static char	*set_line(char *line_buffer)
 {
@@ -34,7 +31,7 @@ static char	*set_line(char *line_buffer)
 		i++;
 	substring = ft_substr(line_buffer, 0, i + 1);
 	if (!substring)
-		return (free(substring), NULL);
+		return (fre(substring), NULL);
 	return (substring);
 }
 
@@ -52,7 +49,7 @@ char	*next_line(char *buffer)
 	i++;
 	next_line = malloc(ft_strlen(buffer) - i + 1);
 	if (!next_line)
-		return (free(buffer), NULL);
+		return (fre(buffer), NULL);
 	j = 0;
 	while (buffer[i])
 		next_line[j++] = buffer[i++];
@@ -75,8 +72,8 @@ char	*fill_line(int fd, char *s_output)
 		read_buffer = read(fd, buffer, BUFFER_SIZE);
 		if (read_buffer == -1)
 		{
-			free(buffer);
-			return (free(s_output), NULL);
+			fre(buffer);
+			return (fre(s_output), NULL);
 		}
 		else if (read_buffer == 0)
 			break ;

@@ -96,7 +96,10 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (m == NULL)
 		return (NULL);
 	m = ft_copy(m, s1, s2);
+<<<<<<< HEAD
 	free((char *)s1);
+=======
+>>>>>>> parent of 0d16412... ok
 	return (m);
 }
 
@@ -105,11 +108,19 @@ char	*ft_strchr(const char *str, int character)
 	int	i;
 
 	i = 0;
+<<<<<<< HEAD
 	while (str && str[i] != '\0')
+=======
+	if (!str)
+		str = ft_strdup("");
+	while (str[i])
+>>>>>>> parent of 0d16412... ok
 	{
 		if (str[i] == (char)character)
 			return ((char *)str + i);
 		i++;
 	}
+	if (str[i] == (char)character)
+	return ((char *)str + i);
 	return (NULL);
 }

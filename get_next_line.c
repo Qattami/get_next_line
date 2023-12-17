@@ -13,8 +13,12 @@
 #include "get_next_line.h"
 char	*fre(char *s)
 {
+<<<<<<< HEAD
 	if (s)
 		free(s);
+=======
+	free(s);
+>>>>>>> parent of 0d16412... ok
 	return (NULL);
 }
 
@@ -45,11 +49,16 @@ char	*next_line(char *buffer)
 	while (buffer[i] && buffer[i] != '\n')
 		i++;
 	if (!buffer[i])
+<<<<<<< HEAD
 		return (free(buffer), NULL);
 	i++;
+=======
+		return (fre(buffer));
+>>>>>>> parent of 0d16412... ok
 	next_line = malloc(ft_strlen(buffer) - i + 1);
 	if (!next_line)
-		return (fre(buffer), NULL);
+		return (NULL);
+	i++;
 	j = 0;
 	while (buffer[i])
 		next_line[j++] = buffer[i++];
@@ -58,9 +67,10 @@ char	*next_line(char *buffer)
 	return (next_line);
 }
 
-char	*fill_line(int fd, char *s_output)
+char	*fill_line(int fd, char *s_output, char *buffer)
 {
 	ssize_t	read_buffer;
+<<<<<<< HEAD
 	char	*buffer;
 
 	read_buffer = 1;
@@ -68,34 +78,63 @@ char	*fill_line(int fd, char *s_output)
 	if (!buffer)
 		return (NULL);
 	while (read_buffer != 0 && !(ft_strchr(s_output, '\n')))
+=======
+
+	read_buffer =1;
+	// if (read_buffer == 0 )
+	// 	return (NULL);
+	while (read_buffer != 0)
+>>>>>>> parent of 0d16412... ok
 	{
 		read_buffer = read(fd, buffer, BUFFER_SIZE);
 		if (read_buffer == -1)
 		{
+<<<<<<< HEAD
 			fre(buffer);
 			return (fre(s_output), NULL);
 		}
 		else if (read_buffer == 0)
 			break ;
+=======
+			buffer = fre(buffer);
+			return (fre(s_output));
+		}
+>>>>>>> parent of 0d16412... ok
 		buffer[read_buffer] = '\0';
 		if (!s_output)
 			s_output = ft_strdup("");
 		s_output = ft_strjoin(s_output, buffer);
+<<<<<<< HEAD
 	}
 	free(buffer);
+=======
+		if(ft_strchr(s_output, '\n'))
+			break; 
+	}
+>>>>>>> parent of 0d16412... ok
 	return (s_output);
 }
 
 char	*get_next_line(int fd)
 {
 	char		*line;
+	char		*buffer;
 	static char	*rest;
 
+<<<<<<< HEAD
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, rest, 0) == -1)
 		return (NULL);
 	rest = fill_line(fd, rest);
 	if (!rest)
+=======
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (fd < 0 || BUFFER_SIZE <= 0 || !buffer)
+		return (free(buffer), buffer = NULL, NULL);
+	rest = fill_line(fd, rest, buffer);
+	if(!rest)
+>>>>>>> parent of 0d16412... ok
 		return (NULL);
+	buffer = fre(buffer);
 	line = set_line(rest);
 	rest = next_line(rest);
 	return (line);
@@ -128,12 +167,15 @@ char	*get_next_line(int fd)
 //         return (1);
 //     }
 
-//     while ((line = get_next_line(fd)) != NULL)
+//     if ((line = get_next_line(fd)) != NULL)
 //     {
-//         printf("%s", line);
+//         printf("%s\n", line);
 //         free(line);
-//     }
-// 	// system("leaks a.out");
+//     }else
+//     {
 //     close(fd);
+
+//     }
+
 //     return (0);
 // }

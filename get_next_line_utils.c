@@ -6,7 +6,7 @@
 /*   By: iqattami <iqattami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 14:02:04 by iqattami          #+#    #+#             */
-/*   Updated: 2023/12/13 15:13:11 by iqattami         ###   ########.fr       */
+/*   Updated: 2023/12/17 00:16:51 by iqattami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,18 +88,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (m == NULL)
 		return (NULL);
 	m = ft_copy(m, s1, s2);
-	free ((char *)s1);
+	free((char *)s1);
 	return (m);
-}
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
 }
 
 char	*ft_strchr(const char *str, int character)
@@ -107,12 +97,6 @@ char	*ft_strchr(const char *str, int character)
 	int	i;
 
 	i = 0;
-	// if (!str)
-	// {
-		
-	// 	str = ft_strdup("");
-	// 	free ((char *)str);
-	// }
 	while (str && str[i] != '\0')
 	{
 		if (str[i] == (char)character)

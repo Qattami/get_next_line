@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iqattami <iqattami@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/17 00:01:36 by iqattami          #+#    #+#             */
+/*   Updated: 2023/12/17 00:16:24 by iqattami         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_BONUS_H
 # define GET_NEXT_LINE_BONUS_H
@@ -11,7 +21,6 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 100000
 # endif
-
 
 # ifndef REST_SIZE
 #  define REST_SIZE 100000

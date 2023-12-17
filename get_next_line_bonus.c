@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iqattami <iqattami@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 14:01:53 by iqattami          #+#    #+#             */
-/*   Updated: 2023/12/13 16:33:08 by iqattami         ###   ########.fr       */
+/*   Updated: 2023/12/17 00:16:06 by iqattami         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
-char	*fre(char *s)
+size_t	ft_strlen(const char *s)
 {
-	if(s)
-		free(s);
-	return (NULL);
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }
 
 static char	*set_line(char *line_buffer)
@@ -31,7 +34,7 @@ static char	*set_line(char *line_buffer)
 		i++;
 	substring = ft_substr(line_buffer, 0, i + 1);
 	if (!substring)
-		return (fre(substring));
+		return (free(substring), NULL);
 	return (substring);
 }
 
@@ -45,11 +48,11 @@ char	*next_line(char *buffer)
 	while (buffer[i] && buffer[i] != '\n')
 		i++;
 	if (!buffer[i])
-		return (free (buffer), NULL);
+		return (free(buffer), NULL);
 	i++;
 	next_line = malloc(ft_strlen(buffer) - i + 1);
 	if (!next_line)
-		return (fre(buffer), NULL);
+		return (free(buffer), NULL);
 	j = 0;
 	while (buffer[i])
 		next_line[j++] = buffer[i++];
@@ -61,30 +64,28 @@ char	*next_line(char *buffer)
 char	*fill_line(int fd, char *s_output)
 {
 	ssize_t	read_buffer;
-	char *buffer;
+	char	*buffer;
 
-	read_buffer =1;
-	buffer = malloc(BUFFER_SIZE  * sizeof(char) + 1 );
+	read_buffer = 1;
+	buffer = malloc(BUFFER_SIZE * sizeof(char) + 1);
 	if (!buffer)
 		return (NULL);
 	while (read_buffer != 0 && !(ft_strchr(s_output, '\n')))
 	{
-        read_buffer = read(fd, buffer, BUFFER_SIZE);
+		read_buffer = read(fd, buffer, BUFFER_SIZE);
 		if (read_buffer == -1)
 		{
-			fre(buffer);
-			return (fre(s_output));
+			free(buffer);
+			return (free(s_output), NULL);
 		}
 		else if (read_buffer == 0)
-			break;
+			break ;
 		buffer[read_buffer] = '\0';
 		if (!s_output)
 			s_output = ft_strdup("");
 		s_output = ft_strjoin(s_output, buffer);
-		// if(!s_output)
-		// 	return (fre(s_output));
 	}
-	free (buffer);
+	free(buffer);
 	return (s_output);
 }
 
@@ -93,10 +94,10 @@ char	*get_next_line(int fd)
 	char		*line;
 	static char	*rest[2000];
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, rest[fd], 0) == -1)
 		return (NULL);
 	rest[fd] = fill_line(fd, rest[fd]);
-	if(!rest[fd])
+	if (!rest[fd])
 		return (NULL);
 	line = set_line(rest[fd]);
 	rest[fd] = next_line(rest[fd]);
